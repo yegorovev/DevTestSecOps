@@ -1,0 +1,5 @@
+TF/.terraform**
+TF/terraform**
+Tests/.idea**
+Tests/.ssh**
+.ssh**
