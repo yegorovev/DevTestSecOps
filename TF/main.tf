@@ -1,4 +1,12 @@
 terraform {
+  backend "s3" {
+    bucket         = "terraform-state-ev-20220101"
+    key            = "Test/terraform.tfstate"
+    region         = "eu-central-1"
+    dynamodb_table = "terraform_state_locks"
+    encrypt        = true
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -10,7 +18,7 @@ terraform {
 
 provider "aws" {
   profile = "default"
-  region  = "us-east-1"
+  region  = "eu-central-1"
   default_tags {
     tags = {
       Env     = "Test"
