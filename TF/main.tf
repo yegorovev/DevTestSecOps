@@ -2,16 +2,21 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.27"
+      version = "~> 4.0"
     }
   }
-
-  required_version = ">= 0.14.9"
+  required_version = "1.1.9"
 }
 
 provider "aws" {
   profile = "default"
   region  = "us-east-1"
+  default_tags {
+    tags = {
+      Env = "Test"
+      Project = "Terraform"
+    }
+  }  
 }
 
 data "aws_ami" "aws" {
@@ -73,10 +78,24 @@ resource "aws_instance" "DevTestSecOps" {
   key_name = "ec2-key"
   subnet_id = data.aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.sg_apache.id]
+  
+  /*
+  https://github.com/hashicorp/terraform-provider-aws/issues/19583
 
+│ Error: Provider produced inconsistent final plan
+│
+│ When expanding the plan for aws_instance.DevTestSecOps to include new values learned so far during apply, provider
+│ "registry.terraform.io/hashicorp/aws" produced an invalid new value for .tags_all: new element "Your_Last_Name" has appeared.
+│
+│ This is a bug in the provider, which should be reported in the provider's own issue tracker.
+
+  Date_creation = timestamp() <<<<!!!!!!
+  */
   tags = {
+    Env = "Test" #slowly without it
+    Project = "Terraform" #slowly without it
     Name = "DevTestSecOps"
-    Date_creation = timestamp()
+    Date_creation = var.current_date
     OS_type = data.aws_ami.aws.platform_details
     AWS_Account_ID = data.aws_caller_identity.current.account_id
     Your_First_Name = var.first_name

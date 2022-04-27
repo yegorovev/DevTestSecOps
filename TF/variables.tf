@@ -12,3 +12,8 @@ variable "last_name" {
   type        = string
   default     = "Maria"
 }
+
+variable "current_date" {
+  type        = string
+  default     = "27/04/2020"
+}
