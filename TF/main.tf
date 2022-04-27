@@ -13,10 +13,10 @@ provider "aws" {
   region  = "us-east-1"
   default_tags {
     tags = {
-      Env = "Test"
+      Env     = "Test"
       Project = "Terraform"
     }
-  }  
+  }
 }
 
 data "aws_ami" "aws" {
@@ -42,43 +42,43 @@ data "aws_subnet" "default" {
 }
 
 resource "aws_security_group" "sg_apache" {
-  name = "sg_apache"
+  name   = "sg_apache"
   vpc_id = data.aws_vpc.default.id
 
   ingress {
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = [var.ext_ip]
   }
 
   ingress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
     cidr_blocks = [var.ext_ip]
   }
 
   egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
 resource "aws_key_pair" "ec2-key" {
-    key_name = "ec2-key"
-    public_key = file("../.ssh/ec2-key.pub")
+  key_name   = "ec2-key"
+  public_key = file("../.ssh/ec2-key.pub")
 }
 
 resource "aws_instance" "DevTestSecOps" {
-  ami           = data.aws_ami.aws.id
-  instance_type = "t2.micro"
-  key_name = "ec2-key"
-  subnet_id = data.aws_subnet.default.id
+  ami                    = data.aws_ami.aws.id
+  instance_type          = "t2.micro"
+  key_name               = "ec2-key"
+  subnet_id              = data.aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.sg_apache.id]
-  
+
   /*
   https://github.com/hashicorp/terraform-provider-aws/issues/19583
 
@@ -92,21 +92,21 @@ resource "aws_instance" "DevTestSecOps" {
   Date_creation = timestamp() <<<<!!!!!!
   */
   tags = {
-    Env = "Test" #slowly without it
-    Project = "Terraform" #slowly without it
-    Name = "DevTestSecOps"
-    Date_creation = var.current_date
-    OS_type = data.aws_ami.aws.platform_details
-    AWS_Account_ID = data.aws_caller_identity.current.account_id
+    Env             = "Test"      #slowly without it
+    Project         = "Terraform" #slowly without it
+    Name            = "DevTestSecOps"
+    Date_creation   = var.current_date
+    OS_type         = data.aws_ami.aws.platform_details
+    AWS_Account_ID  = data.aws_caller_identity.current.account_id
     Your_First_Name = var.first_name
-    Your_Last_Name = var.last_name
+    Your_Last_Name  = var.last_name
   }
 
   metadata_options {
-    http_endpoint = "enabled"
+    http_endpoint               = "enabled"
     http_put_response_hop_limit = 1
-    http_tokens = "optional"
-    instance_metadata_tags = "enabled"
+    http_tokens                 = "optional"
+    instance_metadata_tags      = "enabled"
   }
 
   user_data = <<EOF
