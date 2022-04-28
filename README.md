@@ -13,10 +13,10 @@ Copy **.ssh** folder into **Test** folder
 
 2. Put value into TF/deploy.tfvars
 
-ext_ip       << Your proveder ip
-first_name   << What you want
-last_name    << What you want
-current_date << Current date
+- ext_ip       << Your proveder ip
+- first_name   << What you want
+- last_name    << What you want
+- current_date << Current date
 
 ## 2. Apply
 
