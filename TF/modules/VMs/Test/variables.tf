@@ -4,6 +4,12 @@ variable "aws_ami_id" {
   nullable = false
 }
 
+variable "key_name" {
+  description = "A name of aws_key_pair"
+  type    = string
+  nullable = false
+}
+
 variable "subnet_id" {
   description = "ID of the VPC subnet"
   type    = string

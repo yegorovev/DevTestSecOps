@@ -32,7 +32,7 @@ data "aws_ami" "aws" {
     name   = "name"
     values = ["amzn2-ami-kernel-5.10-hvm-2.0.20220406.1-x86_64-gp2"]
   }
-  
+
   owners = ["137112412989"] # AWS
 }
 
@@ -84,6 +84,7 @@ module "DevTestSecOps" {
   source = "./modules/VMs/Test"
 
   aws_ami_id             = data.aws_ami.aws.id
+  key_name               = aws_key_pair.ec2-key.key_name
   subnet_id              = data.aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.sg_apache.id]
   platform_details       = data.aws_ami.aws.platform_details

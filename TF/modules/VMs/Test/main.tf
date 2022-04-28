@@ -11,7 +11,7 @@ terraform {
 resource "aws_instance" "test-t2-micro" {
   ami                    = var.aws_ami_id
   instance_type          = "t2.micro"
-  key_name               = "ec2-key"
+  key_name               = var.key_name
   subnet_id              = var.subnet_id
   vpc_security_group_ids = var.vpc_security_group_ids
 
