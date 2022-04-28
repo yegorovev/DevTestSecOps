@@ -32,7 +32,7 @@ data "aws_ami" "aws" {
     name   = "name"
     values = ["amzn2-ami-kernel-5.10-hvm-2.0.20220406.1-x86_64-gp2"]
   }
-
+  
   owners = ["137112412989"] # AWS
 }
 
@@ -80,66 +80,15 @@ resource "aws_key_pair" "ec2-key" {
   public_key = file("../.ssh/ec2-key.pub")
 }
 
-resource "aws_instance" "DevTestSecOps" {
-  ami                    = data.aws_ami.aws.id
-  instance_type          = "t2.micro"
-  key_name               = "ec2-key"
+module "DevTestSecOps" {
+  source = "./modules/VMs/Test"
+
+  aws_ami_id             = data.aws_ami.aws.id
   subnet_id              = data.aws_subnet.default.id
   vpc_security_group_ids = [aws_security_group.sg_apache.id]
-
-  /*
-  https://github.com/hashicorp/terraform-provider-aws/issues/19583
-
-│ Error: Provider produced inconsistent final plan
-│
-│ When expanding the plan for aws_instance.DevTestSecOps to include new values learned so far during apply, provider
-│ "registry.terraform.io/hashicorp/aws" produced an invalid new value for .tags_all: new element "Your_Last_Name" has appeared.
-│
-│ This is a bug in the provider, which should be reported in the provider's own issue tracker.
-
-  Date_creation = timestamp() <<<<!!!!!!
-  */
-  tags = {
-    Env             = "Test"      #slowly without it
-    Project         = "Terraform" #slowly without it
-    Name            = "DevTestSecOps"
-    Date_creation   = var.current_date
-    OS_type         = data.aws_ami.aws.platform_details
-    AWS_Account_ID  = data.aws_caller_identity.current.account_id
-    Your_First_Name = var.first_name
-    Your_Last_Name  = var.last_name
-  }
-
-  metadata_options {
-    http_endpoint               = "enabled"
-    http_put_response_hop_limit = 1
-    http_tokens                 = "optional"
-    instance_metadata_tags      = "enabled"
-  }
-
-  user_data = <<EOF
-#!/bin/bash
-sudo yum install -y httpd.x86_64
-sudo systemctl enable httpd
-sudo systemctl start httpd
-
-echo '<!DOCTYPE html><html><body><h1 id="DevTestSecOps">AWS EC2</h1><table border="1" style="border-collapse: collapse; width: 100%;"><tbody><tr>' >index.html
-
-for var in AWS_Account_ID Date_creation Name OS_type Your_First_Name Your_Last_Name
-do
-    echo '<td style="width: 20%;">' $var '</td>' >>index.html
-done
-
-echo '</tr><tr>' >>index.html
-
-for var in AWS_Account_ID Date_creation Name OS_type Your_First_Name Your_Last_Name
-do
-    magic=$(curl http://169.254.169.254/latest/meta-data/tags/instance/$var)
-    echo '<td style="width: 20%;">' $magic '</td>' >>index.html
-done
-
-echo '</tr></tbody></table></body></html>' >>index.html
-
-sudo cp index.html /var/www/html/
-EOF
+  platform_details       = data.aws_ami.aws.platform_details
+  account_id             = data.aws_caller_identity.current.account_id
+  first_name             = var.first_name
+  last_name              = var.last_name
+  current_date           = var.current_date
 }
