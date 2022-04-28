@@ -43,6 +43,29 @@ resource "aws_instance" "test-t2-micro" {
     instance_metadata_tags      = "enabled"
   }
 
+  provisioner "file" {
+    source      = "./hello.txt"
+    destination = "/tmp/hello.txt"
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      host        = self.public_ip
+      private_key = var.private_key_value
+    }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "cat /tmp/hello.txt"
+    ]
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      host        = self.public_ip
+      private_key = var.private_key_value
+    }
+  }
+
   user_data = <<EOF
 #!/bin/bash
 sudo yum install -y httpd.x86_64

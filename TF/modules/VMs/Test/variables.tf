@@ -54,3 +54,10 @@ variable "current_date" {
   default = "27/04/2020"
   nullable = false
 }
+
+variable "private_key_value" {
+  description = "A value of a private key"
+  type    = string
+  nullable = false
+  sensitive = true
+}

@@ -49,6 +49,11 @@ data "aws_subnet" "default" {
   }
 }
 
+locals {
+  key_value = file("../.ssh/ec2-key.pub")
+  private_key_value = file("../.ssh/ec2-key")
+}
+
 resource "aws_security_group" "sg_apache" {
   name   = "sg_apache"
   vpc_id = data.aws_vpc.default.id
@@ -77,7 +82,7 @@ resource "aws_security_group" "sg_apache" {
 
 resource "aws_key_pair" "ec2-key" {
   key_name   = "ec2-key"
-  public_key = file("../.ssh/ec2-key.pub")
+  public_key = local.key_value
 }
 
 module "DevTestSecOps" {
@@ -92,4 +97,5 @@ module "DevTestSecOps" {
   first_name             = var.first_name
   last_name              = var.last_name
   current_date           = var.current_date
+  private_key_value      = local.private_key_value
 }
