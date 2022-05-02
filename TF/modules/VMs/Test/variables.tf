@@ -1,7 +1,14 @@
 variable "aws_ami_id" {
-  description = "ID of the EC2 AWS image instance t2.micro"
+  description = "ID of the EC2 AWS image"
   type    = string
   nullable = false
+}
+
+variable "instance_type" {
+  description = "EC2 AWS image instance type"
+  type    = string
+  nullable = false
+  default = "t2.micro"
 }
 
 variable "key_name" {
@@ -20,6 +27,13 @@ variable "vpc_security_group_ids" {
   description = "A security group set"
   type    = list(string)
   nullable = false
+}
+
+variable "instance_name" {
+  description = "Application instance name"
+  type = string
+  nullable = false
+  default = "DevTestSecOps"
 }
 
 variable "platform_details" {
