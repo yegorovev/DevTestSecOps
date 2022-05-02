@@ -79,7 +79,7 @@ resource "aws_key_pair" "ec2-key" {
 }
 
 module "DevTestSecOps" {
-  source = "./modules/VMs/Test"
+  source = "./modules/VMs/Application"
 
   aws_ami_id             = data.aws_ami.aws.id
   key_name               = aws_key_pair.ec2-key.key_name
