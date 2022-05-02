@@ -1,11 +1,8 @@
 terraform {
-  backend "s3" {
-    bucket         = "terraform-state-ev-20220101"
-    key            = "Test/terraform.tfstate"
-    region         = "eu-central-1"
-    dynamodb_table = "terraform_state_locks"
-    encrypt        = true
-  }
+  # VSC or terraform bug 
+  # terraform init -backend-config=backend.hcl
+  # Too many command line arguments. Did you mean to use -chdir?
+  backend "s3" {}
 
   required_providers {
     aws = {
@@ -17,13 +14,9 @@ terraform {
 }
 
 provider "aws" {
-  profile = "default"
-  region  = "eu-central-1"
+  region  = var.region
   default_tags {
-    tags = {
-      Env     = "Test"
-      Project = "Terraform"
-    }
+    tags = var.default_tags
   }
 }
 
