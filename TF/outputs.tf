@@ -1,14 +1,14 @@
-output "application_ids" {
+output "application_id" {
   description = "ID of the EC2 application instance"
-  value       = module.application.id
+  value       = module.application[*].application_id
 }
 
 output "private_ip" {
   description = "private_ip of the EC2 application instance"
-  value       = module.application.private_ip
+  value       = module.application[*].private_ip
 }
 
 output "public_ip" {
   description = "public_ip of the EC2 application instance"
-  value       = module.application.public_ip
+  value       = module.application[*].public_ip
 }

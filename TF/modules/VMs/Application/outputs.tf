@@ -1,5 +1,5 @@
 # TODO Maybe or not concatenate all outputs
-output "application_ids" {
+output "application_id" {
   description = "ID of the EC2 application instance"
   value       = aws_instance.application.id
 }
