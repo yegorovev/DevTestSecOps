@@ -22,9 +22,14 @@ variable "application_config" {
   default = []
 }
 
-variable "ext_ip" {
-  type    = string
-  default = "0.0.0.0/0"
+variable "application_sg" {
+  description = "Custom security groups for application. cidr_blocks must be separated by a comma"
+  type = list(object({
+    sg_name       = string
+    vpc_id        = string
+    rules = list(map(string))
+  }))
+  default = []
 }
 
 variable "first_name" {

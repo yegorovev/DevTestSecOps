@@ -47,37 +47,19 @@ locals {
   private_key_value = file("../.ssh/ec2-key")
 }
 
-resource "aws_security_group" "sg_apache" {
-  name   = "sg_apache"
-  vpc_id = data.aws_vpc.default.id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [var.ext_ip]
-  }
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = [var.ext_ip]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
 resource "aws_key_pair" "ec2-key" {
   key_name   = "ec2-key"
   public_key = local.key_value
 }
 
+module "sg" {
+  count  = length(var.application_sg)
+  source = "./modules/SG"
+
+  sg_name = var.application_sg[count.index].sg_name
+  vpc_id  = data.aws_vpc.default.id
+  rules   = var.application_sg[count.index].rules
+}
 
 module "application" {
   count  = length(var.application_config)
@@ -87,7 +69,7 @@ module "application" {
   key_name               = aws_key_pair.ec2-key.key_name
   subnet_id              = data.aws_subnet.default.id
   instance_name          = var.application_config[count.index].instance_name
-  vpc_security_group_ids = [aws_security_group.sg_apache.id]
+  vpc_security_group_ids = module.sg[*].sg_id
   platform_details       = data.aws_ami.aws.platform_details
   account_id             = data.aws_caller_identity.current.account_id
   first_name             = var.first_name

@@ -12,3 +12,8 @@ output "public_ip" {
   description = "public_ip of the EC2 application instance"
   value       = module.application[*].public_ip
 }
+
+output "sg_id" {
+  description = "public_ip of the EC2 application instance"
+  value       = module.sg[*].sg_id
+}
