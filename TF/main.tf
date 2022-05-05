@@ -87,6 +87,7 @@ module "application" {
   key_name               = aws_key_pair.ec2-key.key_name
   subnet_id              = data.aws_subnet.default.id
   instance_name          = var.application_config[count.index].instance_name
+  instance_type          = var.application_config[count.index].instance_type
   vpc_security_group_ids = [aws_security_group.sg_apache.id]
   platform_details       = data.aws_ami.aws.platform_details
   account_id             = data.aws_caller_identity.current.account_id

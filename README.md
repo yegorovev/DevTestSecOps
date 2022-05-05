@@ -13,21 +13,40 @@ Copy **.ssh** folder into **Test** folder
 
 2. Put value into TF/deploy.tfvars
 
-- ext_ip       << Your proveder ip
-- first_name   << What you want
-- last_name    << What you want
-- current_date << Current date
+|Var               |Desc                       |Default    |
+|------------------|---------------------------|-----------|
+|ext_ip            |Your proveder ip           |0.0.0.0./0 |
+|first_name        |Any you want value         |Ivan       |
+|last_name         |Any you want value         |Maria      |
+|current_date      |Current date               |           |
+|application_config|EC2 instance configuration |           |
 
-## 2. Apply
+application_config format:
+```yaml
+[
+      {
+          instance_name = string # Name EC2 instance
+          instance_type = string # Type EC2 instance (for example t2.micro)
+      }
+]
+```
+See example: TF/deploy.tfvars
+
+**All code below runs in the TF folder**
+## 2. Init
+Backend configuration places into backend.hcl 
+```
+terraform init -backend-config=backend.hcl
+```
+
+## 3. Apply
 
 ```
-terraform init
-
-terraform apply -auto-approve -var-file="deploy.tfvars" 
+terraform apply -auto-approve -var-file="deploy.tfvars"
 ```
 
-## 3. Destroy
+## 4. Destroy
 
 ```
-terraform destroy -auto-approve -var-file="deploy.tfvars" 
+terraform destroy -auto-approve -var-file="deploy.tfvars"
 ```
