@@ -54,7 +54,7 @@ resource "aws_key_pair" "ec2-key" {
 
 module "sg" {
   count  = length(var.application_sg)
-  source = "./modules/SG"
+  source = "./modules/sg"
 
   sg_name = var.application_sg[count.index].sg_name
   vpc_id  = data.aws_vpc.default.id
@@ -63,7 +63,7 @@ module "sg" {
 
 module "application" {
   count  = length(var.application_config)
-  source = "./modules/VMs/Application"
+  source = "./modules/vms/application"
 
   aws_ami_id             = data.aws_ami.aws.id
   key_name               = aws_key_pair.ec2-key.key_name
