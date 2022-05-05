@@ -1,0 +1,495 @@
+Acquiring state lock. This may take a few moments...
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_key_pair.ec2-key will be created
+  + resource "aws_key_pair" "ec2-key" {
+      + arn             = (known after apply)
+      + fingerprint     = (known after apply)
+      + id              = (known after apply)
+      + key_name        = "ec2-key"
+      + key_name_prefix = (known after apply)
+      + key_pair_id     = (known after apply)
+      + public_key      = "..."
+      + tags_all        = {
+          + "Env"     = "Test"
+          + "Project" = "Terraform"
+        }
+    }
+
+  # null_resource.out[0] will be created
+  + resource "null_resource" "out" {
+      + id       = (known after apply)
+      + triggers = (known after apply)
+    }
+
+  # null_resource.out[1] will be created
+  + resource "null_resource" "out" {
+      + id       = (known after apply)
+      + triggers = (known after apply)
+    }
+
+  # module.application[0].aws_instance.application will be created
+  + resource "aws_instance" "application" {
+      + ami                                  = "ami-01d9d7f15bbea00b7"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "ec2-key"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + subnet_id                            = "subnet-e374d9af"
+      + tags                                 = {
+          + "AWS_Account_ID"  = ""
+          + "Date_creation"   = "28/04/2020"
+          + "Name"            = "test"
+          + "OS_type"         = "Linux/UNIX"
+          + "Your_First_Name" = "E"
+          + "Your_Last_Name"  = "E"
+        }
+      + tags_all                             = {
+          + "AWS_Account_ID"  = ""
+          + "Date_creation"   = "28/04/2020"
+          + "Env"             = "Test"
+          + "Name"            = "test"
+          + "OS_type"         = "Linux/UNIX"
+          + "Project"         = "Terraform"
+          + "Your_First_Name" = "E"
+          + "Your_Last_Name"  = "E"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = "49bac39398477e020cfec973eeea0b959f6b4fbb"
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification {
+          + capacity_reservation_preference = (known after apply)
+
+          + capacity_reservation_target {
+              + capacity_reservation_id                 = (known after apply)
+              + capacity_reservation_resource_group_arn = (known after apply)
+            }
+        }
+
+      + ebs_block_device {
+          + delete_on_termination = (known after apply)
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + snapshot_id           = (known after apply)
+          + tags                  = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = (known after apply)
+          + volume_type           = (known after apply)
+        }
+
+      + enclave_options {
+          + enabled = (known after apply)
+        }
+
+      + ephemeral_block_device {
+          + device_name  = (known after apply)
+          + no_device    = (known after apply)
+          + virtual_name = (known after apply)
+        }
+
+      + maintenance_options {
+          + auto_recovery = (known after apply)
+        }
+
+      + metadata_options {
+          + http_endpoint               = "enabled"
+          + http_put_response_hop_limit = 1
+          + http_tokens                 = "optional"
+          + instance_metadata_tags      = "enabled"
+        }
+
+      + network_interface {
+          + delete_on_termination = (known after apply)
+          + device_index          = (known after apply)
+          + network_card_index    = (known after apply)
+          + network_interface_id  = (known after apply)
+        }
+
+      + root_block_device {
+          + delete_on_termination = (known after apply)
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + tags                  = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = (known after apply)
+          + volume_type           = (known after apply)
+        }
+    }
+
+  # module.application[1].aws_instance.application will be created
+  + resource "aws_instance" "application" {
+      + ami                                  = "ami-01d9d7f15bbea00b7"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "ec2-key"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + subnet_id                            = "subnet-e374d9af"
+      + tags                                 = {
+          + "AWS_Account_ID"  = ""
+          + "Date_creation"   = "28/04/2020"
+          + "Name"            = "test2"
+          + "OS_type"         = "Linux/UNIX"
+          + "Your_First_Name" = "E"
+          + "Your_Last_Name"  = "E"
+        }
+      + tags_all                             = {
+          + "AWS_Account_ID"  = ""
+          + "Date_creation"   = "28/04/2020"
+          + "Env"             = "Test"
+          + "Name"            = "test2"
+          + "OS_type"         = "Linux/UNIX"
+          + "Project"         = "Terraform"
+          + "Your_First_Name" = "E"
+          + "Your_Last_Name"  = "E"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = "49bac39398477e020cfec973eeea0b959f6b4fbb"
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification {
+          + capacity_reservation_preference = (known after apply)
+
+          + capacity_reservation_target {
+              + capacity_reservation_id                 = (known after apply)
+              + capacity_reservation_resource_group_arn = (known after apply)
+            }
+        }
+
+      + ebs_block_device {
+          + delete_on_termination = (known after apply)
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + snapshot_id           = (known after apply)
+          + tags                  = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = (known after apply)
+          + volume_type           = (known after apply)
+        }
+
+      + enclave_options {
+          + enabled = (known after apply)
+        }
+
+      + ephemeral_block_device {
+          + device_name  = (known after apply)
+          + no_device    = (known after apply)
+          + virtual_name = (known after apply)
+        }
+
+      + maintenance_options {
+          + auto_recovery = (known after apply)
+        }
+
+      + metadata_options {
+          + http_endpoint               = "enabled"
+          + http_put_response_hop_limit = 1
+          + http_tokens                 = "optional"
+          + instance_metadata_tags      = "enabled"
+        }
+
+      + network_interface {
+          + delete_on_termination = (known after apply)
+          + device_index          = (known after apply)
+          + network_card_index    = (known after apply)
+          + network_interface_id  = (known after apply)
+        }
+
+      + root_block_device {
+          + delete_on_termination = (known after apply)
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + tags                  = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = (known after apply)
+          + volume_type           = (known after apply)
+        }
+    }
+
+  # module.sg[0].aws_security_group.sg will be created
+  + resource "aws_security_group" "sg" {
+      + arn                    = (known after apply)
+      + description            = "Managed by Terraform"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "test_ingress"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Env"     = "Test"
+          + "Project" = "Terraform"
+        }
+      + vpc_id                 = "vpc-86358dec"
+    }
+
+  # module.sg[0].aws_security_group_rule.rules[0] will be created
+  + resource "aws_security_group_rule" "rules" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 22
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 22
+      + type                     = "ingress"
+    }
+
+  # module.sg[0].aws_security_group_rule.rules[1] will be created
+  + resource "aws_security_group_rule" "rules" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 80
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "ingress"
+    }
+
+  # module.sg[0].aws_security_group_rule.rules[2] will be created
+  + resource "aws_security_group_rule" "rules" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "ingress"
+    }
+
+  # module.sg[1].aws_security_group.sg will be created
+  + resource "aws_security_group" "sg" {
+      + arn                    = (known after apply)
+      + description            = "Managed by Terraform"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "test_egress"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Env"     = "Test"
+          + "Project" = "Terraform"
+        }
+      + vpc_id                 = "vpc-86358dec"
+    }
+
+  # module.sg[1].aws_security_group_rule.rules[0] will be created
+  + resource "aws_security_group_rule" "rules" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 0
+      + id                       = (known after apply)
+      + protocol                 = "-1"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 0
+      + type                     = "egress"
+    }
+
+Plan: 11 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + application_id         = [
+      + (known after apply),
+      + (known after apply),
+    ]
+  + key                    = (known after apply)
+  + private_ip             = [
+      + (known after apply),
+      + (known after apply),
+    ]
+  + public_ip              = [
+      + (known after apply),
+      + (known after apply),
+    ]
+  + security_group_id      = [
+      + (known after apply),
+      + (known after apply),
+    ]
+  + security_group_rule_id = [
+      + [
+          + (known after apply),
+          + (known after apply),
+          + (known after apply),
+        ],
+      + [
+          + (known after apply),
+        ],
+    ]
+aws_key_pair.ec2-key: Creating...
+module.sg[0].aws_security_group.sg: Creating...
+module.sg[1].aws_security_group.sg: Creating...
+aws_key_pair.ec2-key: Creation complete after 1s [id=ec2-key]
+module.sg[1].aws_security_group.sg: Creation complete after 2s [id=sg-00110b7379e9ceb48]
+module.sg[1].aws_security_group_rule.rules[0]: Creating...
+module.sg[0].aws_security_group.sg: Creation complete after 2s [id=sg-09f8011616bb4aae4]
+module.sg[0].aws_security_group_rule.rules[0]: Creating...
+module.sg[0].aws_security_group_rule.rules[1]: Creating...
+module.sg[0].aws_security_group_rule.rules[2]: Creating...
+module.sg[1].aws_security_group_rule.rules[0]: Creation complete after 1s [id=sgrule-1173471994]
+module.sg[0].aws_security_group_rule.rules[1]: Creation complete after 1s [id=sgrule-4040735569]
+module.sg[0].aws_security_group_rule.rules[0]: Creation complete after 2s [id=sgrule-1179838180]
+module.sg[0].aws_security_group_rule.rules[2]: Creation complete after 2s [id=sgrule-1496355899]
+module.application[0].aws_instance.application: Creating...
+module.application[1].aws_instance.application: Creating...
+module.application[0].aws_instance.application: Still creating... [10s elapsed]
+module.application[1].aws_instance.application: Still creating... [10s elapsed]
+module.application[1].aws_instance.application: Still creating... [20s elapsed]
+module.application[0].aws_instance.application: Still creating... [20s elapsed]
+module.application[1].aws_instance.application: Still creating... [30s elapsed]
+module.application[0].aws_instance.application: Still creating... [30s elapsed]
+module.application[1].aws_instance.application: Provisioning with 'file'...
+module.application[1].aws_instance.application: Creation complete after 34s [id=i-03016fe3ce8e18bd2]
+module.application[0].aws_instance.application: Still creating... [40s elapsed]
+module.application[0].aws_instance.application: Provisioning with 'file'...
+module.application[0].aws_instance.application: Creation complete after 44s [id=i-0b28425e1c3c5bf94]
+null_resource.out[0]: Creating...
+null_resource.out[1]: Creating...
+null_resource.out[1]: Provisioning with 'remote-exec'...
+null_resource.out[0]: Provisioning with 'remote-exec'...
+null_resource.out[0] (remote-exec): Connecting to remote host via SSH...
+null_resource.out[0] (remote-exec):   Host: 3.70.184.207
+null_resource.out[0] (remote-exec):   User: ec2-user
+null_resource.out[0] (remote-exec):   Password: false
+null_resource.out[0] (remote-exec):   Private key: true
+null_resource.out[0] (remote-exec):   Certificate: false
+null_resource.out[0] (remote-exec):   SSH Agent: false
+null_resource.out[0] (remote-exec):   Checking Host Key: false
+null_resource.out[0] (remote-exec):   Target Platform: unix
+null_resource.out[1] (remote-exec): Connecting to remote host via SSH...
+null_resource.out[1] (remote-exec):   Host: 3.73.51.218
+null_resource.out[1] (remote-exec):   User: ec2-user
+null_resource.out[1] (remote-exec):   Password: false
+null_resource.out[1] (remote-exec):   Private key: true
+null_resource.out[1] (remote-exec):   Certificate: false
+null_resource.out[1] (remote-exec):   SSH Agent: false
+null_resource.out[1] (remote-exec):   Checking Host Key: false
+null_resource.out[1] (remote-exec):   Target Platform: unix
+null_resource.out[1] (remote-exec): Connected!
+null_resource.out[0] (remote-exec): Connected!
+null_resource.out[1] (remote-exec): ip-172-31-4-33.eu-central-1.compute.internal
+null_resource.out[1] (remote-exec): SUCCESS
+null_resource.out[0] (remote-exec): ip-172-31-5-133.eu-central-1.compute.internal
+null_resource.out[0] (remote-exec): SUCCESS
+null_resource.out[1]: Creation complete after 2s [id=5419716122706872783]
+null_resource.out[0]: Creation complete after 2s [id=6621092316015894789]
+Releasing state lock. This may take a few moments...
+
+Apply complete! Resources: 11 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+application_id = [
+  "i-0b28425e1c3c5bf94",
+  "i-03016fe3ce8e18bd2",
+]
+key = "ec2-key"
+private_ip = [
+  "172.31.5.133",
+  "172.31.4.33",
+]
+public_ip = [
+  "3.70.184.207",
+  "3.73.51.218",
+]
+security_group_id = [
+  "sg-09f8011616bb4aae4",
+  "sg-00110b7379e9ceb48",
+]
+security_group_rule_id = [
+  [
+    "sgrule-1179838180",
+    "sgrule-4040735569",
+    "sgrule-1496355899",
+  ],
+  [
+    "sgrule-1173471994",
+  ],
+]

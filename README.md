@@ -13,13 +13,13 @@ Copy **.ssh** folder into **Test** folder
 
 2. Put value into TF/deploy.tfvars
 
-|Var               |Desc                       |Default    |
-|------------------|---------------------------|-----------|
-|ext_ip            |Your proveder ip           |0.0.0.0./0 |
-|first_name        |Any you want value         |Ivan       |
-|last_name         |Any you want value         |Maria      |
-|current_date      |Current date               |           |
-|application_config|EC2 instance configuration |           |
+|Var               |Desc                         |Default    |
+|------------------|-----------------------------|-----------|
+|first_name        |Any you want value           |Ivan       |
+|last_name         |Any you want value           |Maria      |
+|current_date      |Current date                 |           |
+|application_config|EC2 instance configuration   |           |
+|application_sg    |Security groups configuration|           |
 
 application_config format:
 ```yaml
@@ -30,6 +30,27 @@ application_config format:
       }
 ]
 ```
+
+application_sg format:
+```yaml
+[
+     {
+          sg_name - Name security group
+          vpc_id  - VPC ID #Corrently doesn't use!
+          rules = [
+            {
+              type        - Rule type 
+              from_port   - Port from 
+              to_port     - Port to
+              protocol    = Protocol type
+              cidr_blocks = CIDR block (string, use comma for CIDR delimiter)
+            }, ...
+          ]
+     },
+  ...
+]
+```
+
 See example: TF/deploy.tfvars
 
 **All code below runs in the TF folder**
@@ -44,6 +65,12 @@ terraform init -backend-config=backend.hcl
 ```
 terraform apply -auto-approve -var-file="deploy.tfvars"
 ```
+
+Save output to file
+```
+terraform apply -auto-approve -no-color -var-file="deploy.tfvars" | tee output/out.txt
+```
+See example output/out.txt
 
 ## 4. Destroy
 
