@@ -44,8 +44,8 @@ resource "aws_instance" "application" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/files/hello.txt"
-    destination = "/tmp/hello.txt"
+    source      = join("/", ["${path.module}", var.local_files_source.hello_path])
+    destination = var.hello_file_remote_path
     connection {
       type        = "ssh"
       user        = "ec2-user"
@@ -54,17 +54,5 @@ resource "aws_instance" "application" {
     }
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "cat /tmp/hello.txt"
-    ]
-    connection {
-      type        = "ssh"
-      user        = "ec2-user"
-      host        = self.public_ip
-      private_key = var.private_key_value
-    }
-  }
-
-  user_data = file("${path.module}/files/user_data.sh")
+  user_data = file(join("/", ["${path.module}", var.local_files_source.user_data_path]))
 }

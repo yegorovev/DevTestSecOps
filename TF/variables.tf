@@ -25,9 +25,9 @@ variable "application_config" {
 variable "application_sg" {
   description = "Custom security groups for application. cidr_blocks must be separated by a comma"
   type = list(object({
-    sg_name       = string
-    vpc_id        = string
-    rules = list(map(string))
+    sg_name = string
+    vpc_id  = string
+    rules   = list(map(string))
   }))
   default = []
 }
@@ -45,4 +45,11 @@ variable "last_name" {
 variable "current_date" {
   type    = string
   default = "27/04/2020"
+}
+
+variable "hello_file_remote_path" {
+  description = "hello.txt file path on an instance"
+  type        = string
+  nullable    = false
+  default     = "/tmp/hello.txt"
 }

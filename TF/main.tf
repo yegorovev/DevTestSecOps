@@ -76,4 +76,24 @@ module "application" {
   last_name              = var.last_name
   current_date           = var.current_date
   private_key_value      = local.private_key_value
+  hello_file_remote_path = var.hello_file_remote_path
+}
+
+resource "null_resource" "out" {
+  triggers = {
+    instance_ids = "${join(",", module.application.*.application_id)}"
+  }
+
+  count = length(module.application)
+  provisioner "remote-exec" {
+    inline = [
+      join(" ", ["hostname;", "cat", var.hello_file_remote_path])
+    ]
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      host        = module.application[count.index].public_ip
+      private_key = local.private_key_value
+    }
+  }
 }
