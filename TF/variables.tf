@@ -16,7 +16,10 @@ variable "default_tags" {
 
 variable "application_config" {
   description = "Custom application instance attributes"
-  type = list(map(string))
+  type = list(object({
+    instance_name = string
+    instance_type = string
+  }))
   default = []
 }
 

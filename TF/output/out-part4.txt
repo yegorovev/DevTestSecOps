@@ -1,0 +1,51 @@
+application_config = [
+  {
+    instance_name = "test"
+    instance_type = "t2.micro"
+  }
+]
+application_sg = []
+
+aws_key_pair.ec2-key: Creating...
+aws_security_group_rule.default_rules[0]: Creating...
+aws_key_pair.ec2-key: Creation complete after 0s [id=ec2-key]
+module.application["0"].aws_instance.application: Creating...
+aws_security_group_rule.default_rules[0]: Creation complete after 0s [id=sgrule-526244786]
+module.application["0"].aws_instance.application: Still creating... [10s elapsed]
+module.application["0"].aws_instance.application: Still creating... [20s elapsed]
+module.application["0"].aws_instance.application: Still creating... [30s elapsed]
+module.application["0"].aws_instance.application: Provisioning with 'file'...
+module.application["0"].aws_instance.application: Creation complete after 33s [id=i-00e0422cd5471b923]
+null_resource.out[0]: Creating...
+null_resource.out[0]: Provisioning with 'remote-exec'...
+null_resource.out[0] (remote-exec): Connecting to remote host via SSH...
+null_resource.out[0] (remote-exec):   Host: 3.69.53.72
+null_resource.out[0] (remote-exec):   User: ec2-user
+null_resource.out[0] (remote-exec):   Password: false
+null_resource.out[0] (remote-exec):   Private key: true
+null_resource.out[0] (remote-exec):   Certificate: false
+null_resource.out[0] (remote-exec):   SSH Agent: false
+null_resource.out[0] (remote-exec):   Checking Host Key: false
+null_resource.out[0] (remote-exec):   Target Platform: unix
+null_resource.out[0] (remote-exec): Connected!
+null_resource.out[0] (remote-exec): ip-172-31-10-164.eu-central-1.compute.internal
+null_resource.out[0] (remote-exec): SUCCESS
+null_resource.out[0]: Creation complete after 3s [id=841412582042310865]
+Releasing state lock. This may take a few moments...
+
+Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+application_id = {
+  "0" = "i-00e0422cd5471b923"
+}
+key = "ec2-key"
+private_ip = {
+  "i-00e0422cd5471b923" = "172.31.10.164"
+}
+public_ip = {
+  "i-00e0422cd5471b923" = "3.69.53.72"
+}
+security_group_id = []
+security_group_rule_id = []
