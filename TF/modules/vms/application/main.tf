@@ -1,13 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.0"
-    }
-  }
-  required_version = "1.1.9"
-}
-
 resource "aws_instance" "application" {
   ami                    = var.aws_ami_id
   instance_type          = var.instance_type
