@@ -31,10 +31,10 @@ variable "application_sg" {
     rules   = list(map(string))
   }))
   default = []
-  validation {
-    condition     = length(var.application_sg) > 0
-    error_message = "Security groups must be defined."
-  }
+#  validation {
+#    condition     = length(var.application_sg) > 0
+#    error_message = "Security groups must be defined."
+#  }
 }
 
 variable "first_name" {

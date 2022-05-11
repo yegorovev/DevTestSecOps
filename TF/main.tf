@@ -42,6 +42,23 @@ data "aws_subnet" "default" {
   }
 }
 
+data "aws_security_group" "default" {
+  filter {
+    name   = "group-name"
+    values = ["default"]
+  }
+}
+
+locals {
+  default_rule = [
+    { type        = "ingress"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = "0.0.0.0/0"
+  }]
+}
+
 locals {
   key_value         = file("../.ssh/ec2-key.pub")
   private_key_value = file("../.ssh/ec2-key")
@@ -50,6 +67,17 @@ locals {
 resource "aws_key_pair" "ec2-key" {
   key_name   = "ec2-key"
   public_key = local.key_value
+}
+
+resource "aws_security_group_rule" "default_rules" {
+  count = length(var.application_config) > 0 && length(var.application_sg) == 0 ? length(local.default_rule) : 0
+
+  security_group_id = data.aws_security_group.default.id
+  type              = local.default_rule[count.index].type
+  from_port         = local.default_rule[count.index].from_port
+  to_port           = local.default_rule[count.index].to_port
+  protocol          = local.default_rule[count.index].protocol
+  cidr_blocks       = split(",", local.default_rule[count.index].cidr_blocks)
 }
 
 module "sg" {
@@ -62,7 +90,7 @@ module "sg" {
 }
 
 module "application" {
-  count  = length(var.application_sg) > 0 ? length(var.application_config) : 0
+  count  = length(var.application_config)
   source = "./modules/vms/application"
 
   aws_ami_id             = data.aws_ami.aws.id

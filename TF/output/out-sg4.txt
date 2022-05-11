@@ -1,0 +1,37 @@
+application_config = [
+  {
+    instance_name = "test"
+    instance_type = "t2.micro"
+  }
+]
+application_sg = [
+  {
+    sg_name = "test_ingress"
+    vpc_id  = ""
+    rules = [
+        ....
+    etc.
+
+Acquiring state lock. This may take a few moments...
+module.application[0].aws_instance.application: Creating...
+module.application[0].aws_instance.application: Still creating... [10s elapsed]
+module.application[0].aws_instance.application: Still creating... [20s elapsed]
+module.application[0].aws_instance.application: Still creating... [30s elapsed]
+module.application[0].aws_instance.application: Provisioning with 'file'...
+module.application[0].aws_instance.application: Creation complete after 34s [id=i-027a8a1875d268762]
+null_resource.out[0]: Creating...
+null_resource.out[0]: Provisioning with 'remote-exec'...
+null_resource.out[0] (remote-exec): Connecting to remote host via SSH...
+null_resource.out[0] (remote-exec):   Host: 18.195.201.205
+null_resource.out[0] (remote-exec):   User: ec2-user
+null_resource.out[0] (remote-exec):   Password: false
+null_resource.out[0] (remote-exec):   Private key: true
+null_resource.out[0] (remote-exec):   Certificate: false
+null_resource.out[0] (remote-exec):   SSH Agent: false
+null_resource.out[0] (remote-exec):   Checking Host Key: false
+null_resource.out[0] (remote-exec):   Target Platform: unix
+null_resource.out[0] (remote-exec): Connected!
+null_resource.out[0] (remote-exec): ip-172-31-9-72.eu-central-1.compute.internal
+null_resource.out[0] (remote-exec): SUCCESS
+null_resource.out[0]: Creation complete after 2s [id=3723337983107443586]
+Releasing state lock. This may take a few moments...
