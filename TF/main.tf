@@ -62,7 +62,7 @@ module "sg" {
 }
 
 module "application" {
-  count  = length(var.application_config)
+  count  = length(var.application_sg) > 0 ? length(var.application_config) : 0
   source = "./modules/vms/application"
 
   aws_ami_id             = data.aws_ami.aws.id
