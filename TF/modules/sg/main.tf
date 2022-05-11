@@ -1,13 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.0"
-    }
-  }
-  required_version = "1.1.9"
-}
-
 resource "aws_security_group" "sg" {
   name   = var.sg_name
   vpc_id = var.vpc_id
