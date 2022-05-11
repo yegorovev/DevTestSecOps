@@ -12,6 +12,12 @@ variable "sg_name" {
 
 variable "rules" {
   description = "Ingress and egress security group rules. cidr_blocks must be separated by a comma"
-  type        = list(map(string))
-  default     = []
+  type = list(object({
+    type        = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = string
+  }))
+  default = []
 }
