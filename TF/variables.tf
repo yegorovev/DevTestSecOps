@@ -18,13 +18,19 @@ variable "application_config" {
   description = "Custom application instance attributes"
   type = list(object({
     instance_name = string
+    instance_type = string
   }))
   default = []
 }
 
-variable "ext_ip" {
-  type    = string
-  default = "0.0.0.0/0"
+variable "application_sg" {
+  description = "Custom security groups for application. cidr_blocks must be separated by a comma"
+  type = list(object({
+    sg_name = string
+    vpc_id  = string
+    rules   = list(map(string))
+  }))
+  default = []
 }
 
 variable "first_name" {
@@ -40,4 +46,11 @@ variable "last_name" {
 variable "current_date" {
   type    = string
   default = "27/04/2020"
+}
+
+variable "hello_file_remote_path" {
+  description = "hello.txt file path on an instance"
+  type        = string
+  nullable    = false
+  default     = "/tmp/hello.txt"
 }
