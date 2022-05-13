@@ -5,3 +5,5 @@ TFbackend/terraform**
 Tests/.idea**
 Tests/.ssh**
 .ssh**
+TFpart5/.terraform**
+TFpart5/terraform**
