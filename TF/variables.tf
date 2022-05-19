@@ -28,7 +28,13 @@ variable "application_sg" {
   type = list(object({
     sg_name = string
     vpc_id  = string
-    rules   = list(map(string))
+    rules = list(object({
+      type        = string
+      from_port   = number
+      to_port     = number
+      protocol    = string
+      cidr_blocks = string
+    }))
   }))
   default = []
 #  validation {
