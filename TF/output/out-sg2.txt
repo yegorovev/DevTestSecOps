@@ -1,0 +1,6 @@
+application_config = []
+application_sg = []
+
+aws_key_pair.ec2-key: Creating...
+aws_key_pair.ec2-key: Creation complete after 1s [id=ec2-key]
+Releasing state lock. This may take a few moments...

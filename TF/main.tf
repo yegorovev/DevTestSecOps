@@ -42,6 +42,23 @@ data "aws_subnet" "default" {
   }
 }
 
+data "aws_security_group" "default" {
+  filter {
+    name   = "group-name"
+    values = ["default"]
+  }
+}
+
+locals {
+  default_rule = [
+    { type        = "ingress"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = "0.0.0.0/0"
+  }]
+}
+
 locals {
   key_value         = file("../.ssh/ec2-key.pub")
   private_key_value = file("../.ssh/ec2-key")
@@ -50,6 +67,17 @@ locals {
 resource "aws_key_pair" "ec2-key" {
   key_name   = "ec2-key"
   public_key = local.key_value
+}
+
+resource "aws_security_group_rule" "default_rules" {
+  count = length(var.application_config) > 0 && length(var.application_sg) == 0 ? length(local.default_rule) : 0
+
+  security_group_id = data.aws_security_group.default.id
+  type              = local.default_rule[count.index].type
+  from_port         = local.default_rule[count.index].from_port
+  to_port           = local.default_rule[count.index].to_port
+  protocol          = local.default_rule[count.index].protocol
+  cidr_blocks       = split(",", local.default_rule[count.index].cidr_blocks)
 }
 
 module "sg" {
@@ -62,14 +90,15 @@ module "sg" {
 }
 
 module "application" {
-  count  = length(var.application_config)
+  #count  = length(var.application_config)
   source = "./modules/vms/application"
 
+  for_each               = { for i, app in var.application_config : i => app }
   aws_ami_id             = data.aws_ami.aws.id
   key_name               = aws_key_pair.ec2-key.key_name
   subnet_id              = data.aws_subnet.default.id
-  instance_name          = var.application_config[count.index].instance_name
-  instance_type          = var.application_config[count.index].instance_type
+  instance_name          = each.value.instance_name
+  instance_type          = each.value.instance_type
   vpc_security_group_ids = module.sg[*].sg_id
   platform_details       = data.aws_ami.aws.platform_details
   account_id             = data.aws_caller_identity.current.account_id
@@ -80,20 +109,25 @@ module "application" {
   hello_file_remote_path = var.hello_file_remote_path
 }
 
+locals {
+  app_id     = [for app in module.application : app.application_id]
+  app_pub_ip = [for app in module.application : app.public_ip]
+}
+
 resource "null_resource" "out" {
   triggers = {
-    instance_ids = "${join(",", module.application.*.application_id)}"
+    instance_ids = "${join(",", local.app_id)}"
   }
-
-  count = length(module.application)
+  count = length(local.app_pub_ip)
   provisioner "remote-exec" {
     inline = [
       join(" ", ["hostname;", "cat", var.hello_file_remote_path])
     ]
+
     connection {
       type        = "ssh"
       user        = "ec2-user"
-      host        = module.application[count.index].public_ip
+      host        = local.app_pub_ip[count.index]
       private_key = local.private_key_value
     }
   }
