@@ -1,0 +1,11 @@
+[
+	{
+		"name": "${name}",
+		"image": "${image}",
+		"essential": true,
+		"portMappings": ${port_mappings},
+		"cpu": ${cpu},
+		"memory": ${memory},
+		"command": ${command}
+	}
+]
